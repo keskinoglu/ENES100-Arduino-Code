@@ -1,0 +1,51 @@
+void loop() {
+  pinRead = read from four pins;
+  
+  mappedValues = convert raw input into corresponding degrees;
+  
+  // Case values set for front fan
+  if (how much should servo turn?) {
+    set case;
+  }
+  else if (how much should servo turn now?) {
+    set case;
+  }
+  
+  // Case values set for back fan
+  if (how much should servo turn?) {
+    set case;
+  }
+  else if (how much should servo turn now?) {
+    set case;
+  }
+  
+  // Case switch for front fan
+  switch (for front) {
+ 
+    case 1:
+      frontServo.write(x degrees);
+      break;
+    case 2:
+      frontServo.write(x degrees);
+      break;
+    default:
+      //do nothing
+      break;
+  }
+  
+  // Case switch for back fan
+    switch (for front) {
+ 
+    case 1:
+      frontServo.write(x degrees);
+      break;
+    case 2:
+      frontServo.write(x degrees);
+      break;
+    default:
+      //do nothing
+      break;
+  }
+  // waits for the servo to get there
+ delay(100); 
+}

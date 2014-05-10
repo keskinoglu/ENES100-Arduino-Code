@@ -15,8 +15,8 @@
 
 SoftwareSerial rfRead(10, 11); // RX, TX
 char signal;
-boolean isChar; // Declare the lane we are in; A, B, or C
-char ABorC = 'C';
+boolean isChar;
+char ABorC = 'C'; // Declare the lane we are in; A, B, or C
 
 void setup()  
 {
