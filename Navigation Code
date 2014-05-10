@@ -1,2 +1,127 @@
-How does
-this work?
+/*
+  This code runs the hovercrat control system
+  with two servos and four sensors
+  there is no difference between the code for
+  front and back fans
+ */
+#include <Servo.h> 
+ 
+int frontCase = 0;
+int backCase = 0;
+ 
+Servo frontServo;  // create servo object to control a servo
+Servo backServo;
+
+int val;    // variable to read the value from the analog pin 
+int val2;
+int val3;
+int val4;
+
+int servoVal = 0;
+int servoVal2 = 0;
+int servoVal3 = 0;
+int servoVal4 = 0;
+
+void setup() {
+  // initialize serial communication at 9600 bits per second:
+  Serial.begin(9600);
+  // attach front to 9
+  frontServo.attach(9);
+  frontServo.write(80);
+  
+  // attach back to 11
+  backServo.attach(11);
+  backServo.write(80);
+}
+
+void loop() {
+  val = analogRead(A0);            // reads the value of the light sensor (value between 0 and 1023) 
+  val2 = analogRead(A1);
+  val3 = analogRead(A2);
+  val4 = analogRead(A3);
+  
+  val = map(val, 0, 1023, 1, 170);     // scale it to use it with the servo (maximum possible value between 0 and 180) 
+  val2 = map(val2, 0, 1023, 170, 1);
+  val3 = map(val3, 0, 1023, 1, 170);
+  val4 = map(val4, 0, 1023, 170, 1);
+  
+  servoVal = constrain(val, 10, 80);
+  servoVal2 = constrain(val2, 80, 150);
+  servoVal3 = constrain(val3, 10, 80);
+  servoVal4 = constrain(val4, 80, 150);
+  
+  // Case values set for front fan
+  if (servoVal < 80 && servoVal2 > 80) {
+    frontCase = 1;
+  }
+  else if (servoVal == 80 && servoVal2 == 80) {
+    frontCase = 2;
+  }
+  else if (servoVal < 75) {
+    frontCase = 3;
+  }
+  else if (servoVal2 > 85) {
+    frontCase = 4;
+  }
+  
+  // Case values set for back fan
+  if (servoVal3 < 80 && servoVal4 > 80) {
+    backCase = 1;
+  }
+  else if (servoVal3 == 80 && servoVal4 == 80) {
+    backCase = 2;
+  }
+  else if (servoVal3 < 75) {
+    backCase = 3;
+  }
+  else if (servoVal4 > 85) {
+    backCase = 4;
+  }
+  
+  // Case switch for front fan
+  switch (frontCase) {
+    case 1:
+      frontServo.write(80);
+      Serial.println("Front STOP!");
+      break;
+    case 2:
+      frontServo.write(80);
+      Serial.println(" Front Ramming Speed!");
+      break;
+    case 3:
+      frontServo.write(servoVal);
+      Serial.println(servoVal);
+      break;
+    case 4:
+      frontServo.write(servoVal2);
+      Serial.println(servoVal2);
+      break;
+    default:
+      //do nothing
+      break;
+  }
+  
+  // Case switch for back fan
+  switch (backCase) {
+    case 1:
+      backServo.write(80);
+      Serial.println("Back STOP!");
+      break;
+    case 2:
+      backServo.write(80);
+      Serial.println("Back Ramming Speed!");
+      break;
+    case 3:
+      backServo.write(servoVal3);
+      Serial.println(servoVal3);
+      break;
+    case 4:
+      backServo.write(servoVal4);
+      Serial.println(servoVal4);
+      break;
+    default:
+      //do nothing
+      break;
+  }
+ delay(100);                           // waits for the servo to get there 
+}
