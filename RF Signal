@@ -1,0 +1,41 @@
+/*
+
+ The circuit: 
+ * TX is digital pin 10
+ * RX is digital pin 11
+ * AUX is blank
+ * EN and SET are HIGH
+ 
+ Note:
+ Change the char ABorC variable depending on what "lane" we are in
+ The value we are looking for is commented below
+ 
+ */
+#include <SoftwareSerial.h>
+
+SoftwareSerial rfRead(10, 11); // RX, TX
+char signal;
+boolean isChar;
+// Declare the lane we are in; A, B, or C
+char ABorC = 'C';
+
+void setup()  
+{
+  Serial.begin(9600);
+  rfRead.begin(9600);
+}
+
+void loop()
+{
+  rfRead.listen();
+  if (rfRead.available()) {
+    signal = rfRead.read();
+    if (isChar == true) {
+      Serial.println(signal); // <---- This is the value we are looking for!!
+      isChar = false;
+    }
+    if (signal == ABorC) {
+      isChar = true;
+    }
+  }
+}
