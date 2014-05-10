@@ -3,6 +3,12 @@
   with two servos and four sensors
   there is no difference between the code for
   front and back fans
+  
+  Attach one servo to pwm pin 9, the other to pwm pin 11
+  Attach a pair of light sensors (2 front OR 2 back) to
+  analog pins A0 and A1, and the other pair to A2 and A3
+  
+  You can use serial monitor to test the device
  */
 #include <Servo.h> 
  
@@ -23,14 +29,11 @@ int servoVal3 = 0;
 int servoVal4 = 0;
 
 void setup() {
-  // initialize serial communication at 9600 bits per second:
-  Serial.begin(9600);
-  // attach front to 9
-  frontServo.attach(9);
+  Serial.begin(9600);			// initialize serial communication at 9600 bits per second:
+  frontServo.attach(9);			// attach front servo to pwm pin 9
   frontServo.write(80);
   
-  // attach back to 11
-  backServo.attach(11);
+  backServo.attach(11);			// attach back servo to pwm 11
   backServo.write(80);
 }
 
