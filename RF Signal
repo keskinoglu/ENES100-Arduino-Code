@@ -15,8 +15,7 @@
 
 SoftwareSerial rfRead(10, 11); // RX, TX
 char signal;
-boolean isChar;
-// Declare the lane we are in; A, B, or C
+boolean isChar; // Declare the lane we are in; A, B, or C
 char ABorC = 'C';
 
 void setup()  
@@ -29,9 +28,9 @@ void loop()
 {
   rfRead.listen();
   if (rfRead.available()) {
-    signal = rfRead.read();
+    signal = rfRead.read(); // <---- This is the value we are looking for!!
     if (isChar == true) {
-      Serial.println(signal); // <---- This is the value we are looking for!!
+      Serial.println(signal);
       isChar = false;
     }
     if (signal == ABorC) {
