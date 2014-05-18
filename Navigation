@@ -45,10 +45,10 @@ void loop() {
   val3 = analogRead(A2);
   val4 = analogRead(A3);
   
-  val = map(val, 0, 1023, 1, 170);     // scale it to use it with the servo (maximum possible value between 0 and 180) 
-  val2 = map(val2, 0, 1023, 170, 1);
-  val3 = map(val3, 0, 1023, 1, 170);
-  val4 = map(val4, 0, 1023, 170, 1);
+  val = map(val, 0, 1023, 1, 180);     // scale it to use it with the servo (maximum possible value between 0 and 180) 
+  val2 = map(val2, 0, 1023, 180, 1);
+  val3 = map(val3, 0, 1023, 1, 180);
+  val4 = map(val4, 0, 1023, 180, 1);
   
   servoVal = constrain(val, 10, 80);
   servoVal2 = constrain(val2, 80, 150);
